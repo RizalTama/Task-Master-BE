@@ -1,0 +1,84 @@
+====================================================
+  CARA MENJALANKAN PROYEK DI WINDOWS (VS CODE)
+====================================================
+
+Buka VS Code di folder Task-Master, lalu buka terminal (Ctrl + `)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  LANGKAH 1 — SETUP (hanya pertama kali)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Di terminal, jalankan satu per satu:
+
+   cd taskmaster-BE
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   pip install "pydantic[email]" pytest httpx pytest-asyncio
+
+CATATAN: Jika muncul error "cannot be loaded / running scripts is disabled",
+jalankan perintah ini di PowerShell (Run as Administrator), lalu ulangi:
+
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  LANGKAH 2 — JALANKAN BACKEND (Terminal 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   cd taskmaster-BE
+   venv\Scripts\activate
+   python -m uvicorn app.main:app --reload
+
+Server berjalan di → http://127.0.0.1:8000
+Biarkan terminal ini tetap buka.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  LANGKAH 3 — JALANKAN FLUTTER (Terminal 2)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Buka terminal baru (klik + di VS Code), lalu:
+
+   cd task_master_flutter
+   flutter pub get
+   flutter run
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  LANGKAH 4 — JALANKAN UNIT TEST (Terminal Baru)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   cd taskmaster-BE
+   venv\Scripts\activate
+   python -m pytest
+
+Hasil yang diharapkan → 74 passed
+
+
+----------------------------------------------------
+  PERINTAH TEST TAMBAHAN
+----------------------------------------------------
+
+Semua test:
+   python -m pytest
+
+Per file:
+   python -m pytest tests/test_auth.py
+   python -m pytest tests/test_tasks.py
+   python -m pytest tests/test_chat.py
+   python -m pytest tests/test_repo.py
+   python -m pytest tests/test_security.py
+
+Per class:
+   python -m pytest tests/test_repo.py::TestCreateTask
+
+Per test spesifik:
+   python -m pytest tests/test_repo.py::TestCreateTask::test_create_task_minimal
+
+----------------------------------------------------
+  NONAKTIFKAN VENV (setelah selesai)
+----------------------------------------------------
+
+   deactivate

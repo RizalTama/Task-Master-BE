@@ -1,0 +1,14 @@
+# Secrets
+.env
+*firebase-adminsdk*.json
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store

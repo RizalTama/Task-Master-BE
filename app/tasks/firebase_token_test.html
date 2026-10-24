@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Get Firebase ID Token</title>
+</head>
+<body>
+  <button id="login">Login Google</button>
+  <button id="get">Get ID Token</button>
+  <pre id="out"></pre>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+    // 🔥 GANTI DENGAN firebaseConfig PUNYA KAMU (dari Firebase Console → Project settings)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWRdl58FBEVuMCy0tJJGG_AqIGfOQFx2k",
+      authDomain: "taskmaster-ai-6ae5f.firebaseapp.com",
+      projectId: "taskmaster-ai-6ae5f",
+      appId: "1:287303322509:web:caf98ea6373e6ec821cbc4",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const out = document.getElementById("out");
+
+    document.getElementById("login").onclick = async () => {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      out.textContent = "Login OK ✅";
+    };
+
+    document.getElementById("get").onclick = async () => {
+      const user = auth.currentUser;
+      if (!user) return out.textContent = "Belum login.";
+      const token = await user.getIdToken(true);
+      out.textContent = token;
+    };
+  </script>
+</body>
+</html>

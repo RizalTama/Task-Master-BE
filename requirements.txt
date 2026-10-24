@@ -1,0 +1,10 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+firebase-admin==6.6.0
+openai==2.15.0
+dateparser==1.2.2
+PyJWT==2.8.0
+python-jose==3.3.0
